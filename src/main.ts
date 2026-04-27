@@ -4,6 +4,8 @@ import express, { Express, Request, Response } from 'express';
 import { AppDataSource } from './config/data-source';
 import { env } from './config/env.config';
 import { errorHandler } from './common/middleware/error-handler.middleware';
+import { authRouter } from './modules/auth/routes/auth.route';
+import { userRouter } from './modules/users/routes/user.route';
 
 async function bootstrap(): Promise<void> {
   try {
@@ -22,7 +24,9 @@ async function bootstrap(): Promise<void> {
       });
     });
 
-    // should be the LAST app.use()
+    app.use('/api/auth', authRouter);
+    app.use('/api/users', userRouter);
+
     app.use(errorHandler);
 
     app.listen(env.port, () => {

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { JwtService, JwtPayload } from '../../modules/auth/services/jwt.service';
+import { JwtPayload } from '../../modules/auth/services/jwt.service';
 import { UnauthorizedException } from '../exceptions/http-exception';
 
 declare global {
@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-const jwtService = new JwtService();
+import { jwtService } from '../../composition';
 
 export function authenticate(req: Request, _res: Response, next: NextFunction): void {
   try {
