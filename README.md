@@ -25,7 +25,7 @@ REST API for user management. Test task implementation for a Junior Node.js Deve
 
 ## Project Structure
 
-\`\`\`
+```
 src/
 ├── common/              Shared components
 │   ├── exceptions/      Custom HTTP exceptions
@@ -49,7 +49,7 @@ src/
 │       └── services/
 ├── composition.ts       Composition root (manual DI)
 └── main.ts              Entry point
-\`\`\`
+```
 
 ## Getting Started
 
@@ -60,7 +60,7 @@ src/
 
 ### Steps
 
-\`\`\`bash
+```bash
 # 1. Clone the repository
 git clone <repo-url>
 cd users-service-test
@@ -79,7 +79,7 @@ npm run migration:run
 
 # 6. Start the dev server
 npm run dev
-\`\`\`
+```
 
 The server runs at `http://localhost:3000`.
 
@@ -110,48 +110,48 @@ JWT must be provided in the `Authorization` header: `Bearer <token>`.
 
 ### Register
 
-\`\`\`bash
-curl -X POST http://localhost:3000/api/auth/register \\
-  -H "Content-Type: application/json" \\
+```bash
+curl -X POST http://localhost:3000/api/auth/register \
+  -H "Content-Type: application/json" \
   -d '{
     "fullName": "Islam Velikhanli",
     "birthDate": "1995-05-15",
     "email": "islam@test.com",
     "password": "SecurePass123"
   }'
-\`\`\`
+```
 
 ### Login
 
-\`\`\`bash
-curl -X POST http://localhost:3000/api/auth/login \\
-  -H "Content-Type: application/json" \\
+```bash
+curl -X POST http://localhost:3000/api/auth/login \
+  -H "Content-Type: application/json" \
   -d '{
     "email": "islam@test.com",
     "password": "SecurePass123"
   }'
-\`\`\`
+```
 
 ### Get user by ID
 
-\`\`\`bash
-curl http://localhost:3000/api/users/<user-id> \\
+```bash
+curl http://localhost:3000/api/users/<user-id> \
   -H "Authorization: Bearer <token>"
-\`\`\`
+```
 
 ### List all users (admin only)
 
-\`\`\`bash
-curl http://localhost:3000/api/users \\
+```bash
+curl http://localhost:3000/api/users \
   -H "Authorization: Bearer <admin-token>"
-\`\`\`
+```
 
 ### Block a user
 
-\`\`\`bash
-curl -X PATCH http://localhost:3000/api/users/<user-id>/block \\
+```bash
+curl -X PATCH http://localhost:3000/api/users/<user-id>/block \
   -H "Authorization: Bearer <token>"
-\`\`\`
+```
 
 For convenient testing, the repository includes `requests.http` — a ready-to-use collection of requests for the VS Code REST Client extension.
 
@@ -163,9 +163,9 @@ Modules are organized by feature (`auth`, `users`) rather than by technical laye
 
 ### Layers within a module
 
-\`\`\`
+```
 Route → Middleware → Controller → Service → Repository → DB
-\`\`\`
+```
 
 - **Controller** — thin layer that parses the request and delegates to the service
 - **Service** — contains all business logic, validation rules, and ownership checks
@@ -197,7 +197,7 @@ DI is implemented manually via a composition root (`src/composition.ts`). This k
 
 ## Scripts
 
-\`\`\`bash
+```bash
 npm run dev               # Run in dev mode with auto-reload
 npm run build             # Compile to dist/
 npm run start             # Run compiled output
@@ -209,7 +209,7 @@ npm run migration:revert
 npm run lint              # Check code style
 npm run lint:fix          # Auto-fix lint issues
 npm run format            # Format with Prettier
-\`\`\`
+```
 
 ## Possible Improvements
 
@@ -223,7 +223,3 @@ Given more time, the following would be the next steps:
 - CI/CD pipeline (GitHub Actions: lint, build, test on each PR)
 - Graceful shutdown (close DB connections on SIGTERM)
 - Database connection retry logic at startup
-
-## Contact
-
-If anything is unclear or you'd like to discuss the implementation choices, feel free to reach out.
