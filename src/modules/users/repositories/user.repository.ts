@@ -1,6 +1,6 @@
-import { Repository } from 'typeorm';
-import { AppDataSource } from '../../../config/data-source';
-import { User } from '../entities/user.entity';
+import { Repository } from "typeorm";
+import { AppDataSource } from "../../../config/data-source";
+import { User } from "../entities/user.entity";
 
 export class UserRepository {
   private readonly repository: Repository<User>;
@@ -19,9 +19,9 @@ export class UserRepository {
 
   async findByEmailWithPassword(email: string): Promise<User | null> {
     return this.repository
-      .createQueryBuilder('user')
-      .where('user.email = :email', { email })
-      .addSelect('user.password')
+      .createQueryBuilder("user")
+      .where("user.email = :email", { email })
+      .addSelect("user.password")
       .getOne();
   }
 

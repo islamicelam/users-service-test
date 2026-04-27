@@ -1,10 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
-import { AuthService } from '../services/auth.service';
+import { Request, Response, NextFunction } from "express";
+import { AuthService } from "../services/auth.service";
 
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  register = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
       const result = await this.authService.register(req.body);
       res.status(201).json(result);
@@ -13,7 +17,11 @@ export class AuthController {
     }
   };
 
-  login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  login = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
       const result = await this.authService.login(req.body);
       res.status(200).json(result);

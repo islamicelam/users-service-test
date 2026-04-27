@@ -1,12 +1,16 @@
-import { Request, Response, NextFunction } from 'express';
-import { plainToInstance } from 'class-transformer';
-import { validate, ValidationError } from 'class-validator';
-import { BadRequestException } from '../exceptions/http-exception';
+import { Request, Response, NextFunction } from "express";
+import { plainToInstance } from "class-transformer";
+import { validate, ValidationError } from "class-validator";
+import { BadRequestException } from "../exceptions/http-exception";
 
 type ClassConstructor<T> = new (...args: unknown[]) => T; // creates instance via new
 
 export function validateDto<T extends object>(DtoClass: ClassConstructor<T>) {
-  return async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+  return async (
+    req: Request,
+    _res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
       const dtoInstance = plainToInstance(DtoClass, req.body);
 
@@ -21,7 +25,7 @@ export function validateDto<T extends object>(DtoClass: ClassConstructor<T>) {
           messages: error.constraints ? Object.values(error.constraints) : [],
         }));
 
-        throw new BadRequestException('Validation failed', formattedErrors);
+        throw new BadRequestException("Validation failed", formattedErrors);
       }
 
       req.body = dtoInstance;

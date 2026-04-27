@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import { JwtPayload } from '../../modules/auth/services/jwt.service';
-import { UnauthorizedException } from '../exceptions/http-exception';
+import { Request, Response, NextFunction } from "express";
+import { JwtPayload } from "../../modules/auth/services/jwt.service";
+import { UnauthorizedException } from "../exceptions/http-exception";
 
 declare global {
   namespace Express {
@@ -10,24 +10,30 @@ declare global {
   }
 }
 
-import { jwtService } from '../../composition';
+import { jwtService } from "../../composition";
 
-export function authenticate(req: Request, _res: Response, next: NextFunction): void {
+export function authenticate(
+  req: Request,
+  _res: Response,
+  next: NextFunction,
+): void {
   try {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-      throw new UnauthorizedException('Authorization header is missing');
+      throw new UnauthorizedException("Authorization header is missing");
     }
 
-    if (!authHeader.startsWith('Bearer ')) {
-      throw new UnauthorizedException('Invalid authorization format. Expected: Bearer <token>');
+    if (!authHeader.startsWith("Bearer ")) {
+      throw new UnauthorizedException(
+        "Invalid authorization format. Expected: Bearer <token>",
+      );
     }
 
     const token = authHeader.substring(7);
 
     if (!token) {
-      throw new UnauthorizedException('Token is missing');
+      throw new UnauthorizedException("Token is missing");
     }
 
     const payload = jwtService.verify(token);

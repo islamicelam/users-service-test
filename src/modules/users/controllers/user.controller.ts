@@ -1,13 +1,17 @@
-import { Request, Response, NextFunction } from 'express';
-import { UserService } from '../services/user.service';
+import { Request, Response, NextFunction } from "express";
+import { UserService } from "../services/user.service";
 
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  findById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  findById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
       if (!req.user) {
-        res.status(401).json({ message: 'Unauthorized' });
+        res.status(401).json({ message: "Unauthorized" });
         return;
       }
 
@@ -22,7 +26,11 @@ export class UserController {
     }
   };
 
-  findAll = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
+  findAll = async (
+    _req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
       const users = await this.userService.findAll();
       res.status(200).json(users);
@@ -31,10 +39,14 @@ export class UserController {
     }
   };
 
-  block = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  block = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
     try {
       if (!req.user) {
-        res.status(401).json({ message: 'Unauthorized' });
+        res.status(401).json({ message: "Unauthorized" });
         return;
       }
 

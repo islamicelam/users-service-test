@@ -1,6 +1,6 @@
-import jwt, { SignOptions } from 'jsonwebtoken';
-import { env } from '../../../config/env.config';
-import { UnauthorizedException } from '../../../common/exceptions/http-exception';
+import jwt, { SignOptions } from "jsonwebtoken";
+import { env } from "../../../config/env.config";
+import { UnauthorizedException } from "../../../common/exceptions/http-exception";
 
 export interface JwtPayload {
   userId: string;
@@ -10,7 +10,7 @@ export interface JwtPayload {
 export class JwtService {
   sign(payload: JwtPayload): string {
     const options: SignOptions = {
-      expiresIn: env.jwt.expiresIn as SignOptions['expiresIn'],
+      expiresIn: env.jwt.expiresIn as SignOptions["expiresIn"],
     };
     return jwt.sign(payload, env.jwt.secret, options);
   }
@@ -19,8 +19,8 @@ export class JwtService {
     try {
       const decoded = jwt.verify(token, env.jwt.secret);
 
-      if (typeof decoded === 'string') {
-        throw new UnauthorizedException('Invalid token format');
+      if (typeof decoded === "string") {
+        throw new UnauthorizedException("Invalid token format");
       }
 
       return decoded as JwtPayload;
@@ -28,7 +28,7 @@ export class JwtService {
       if (error instanceof UnauthorizedException) {
         throw error;
       }
-      throw new UnauthorizedException('Invalid or expired token');
+      throw new UnauthorizedException("Invalid or expired token");
     }
   }
 }
