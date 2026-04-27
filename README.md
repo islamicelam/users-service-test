@@ -153,8 +153,6 @@ curl -X PATCH http://localhost:3000/api/users/<user-id>/block \
   -H "Authorization: Bearer <token>"
 ```
 
-For convenient testing, the repository includes `requests.http` — a ready-to-use collection of requests for the VS Code REST Client extension.
-
 ## Architecture Notes
 
 ### Feature-based structure
@@ -206,20 +204,5 @@ npm run migration:generate -- src/database/migrations/<Name>
 npm run migration:run
 npm run migration:revert
 
-npm run lint              # Check code style
-npm run lint:fix          # Auto-fix lint issues
 npm run format            # Format with Prettier
 ```
-
-## Possible Improvements
-
-Given more time, the following would be the next steps:
-
-- Unit tests with Jest (priority: services and middleware)
-- Refresh tokens and a blacklist for revoked JWTs
-- Rate limiting via `express-rate-limit` (especially on auth endpoints)
-- Structured logging via `pino` or `winston` instead of `console.log`
-- OpenAPI / Swagger documentation
-- CI/CD pipeline (GitHub Actions: lint, build, test on each PR)
-- Graceful shutdown (close DB connections on SIGTERM)
-- Database connection retry logic at startup
